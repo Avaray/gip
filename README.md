@@ -13,7 +13,7 @@ const gip = require('gip');
 
 (async () => {
     try {
-        let ip = await gip()
+        const ip = await gip()
         console.log(ip)
     } catch (error) {
         console.log(`Can't get your IP. Reason: ${error}`)
