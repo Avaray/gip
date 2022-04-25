@@ -1,0 +1,34 @@
+{
+  "name": "gip",
+  "version": "1.0.0",
+  "description": "Get your public IP address",
+  "author": "Avaray",
+  "license": "MIT",
+  "main": "module.js",
+  "bin": {
+    "gip": "cli.js"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Avaray/gip.git"
+  },
+  "keywords": [
+    "external",
+    "public",
+    "ip",
+    "ipv4",
+    "address",
+    "fetch",
+    "fetch-api"
+  ],
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "bugs": {
+    "url": "https://github.com/Avaray/gip/issues"
+  },
+  "homepage": "https://github.com/Avaray/gip#readme"
+}
