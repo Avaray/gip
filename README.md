@@ -33,4 +33,4 @@ Usage with custom services:
 Currently you need to pass full, valid URL (including protocol). It will change in next version(s).
 
 ## Requirements
-Node.js version 18.0.0 or higher.
+Node.js version **18.0.0** or higher.
