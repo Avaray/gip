@@ -8,7 +8,7 @@ It will fetch data from multiple services at the same time to give you results a
 `npm i gip`
 
 Example code:  
-````
+````js
 const gip = require('gip'); 
 
 (async () => {
