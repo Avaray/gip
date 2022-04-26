@@ -4,6 +4,9 @@
 
 It will fetch data from multiple services at the same time to give you results as fast as possible.
 
+## Requirements
+Node.js version **18.0.0** or higher.
+
 ## Usage
 `npm i gip`
 
@@ -31,6 +34,3 @@ Usage:
 Usage with custom services:  
 `> gip "https://ipv4.icanhazip.com/" "https://ifconfig.me/ip"`  
 Currently you need to pass full, valid URL (including protocol). It will change in next version(s).
-
-## Requirements
-Node.js version **18.0.0** or higher.
