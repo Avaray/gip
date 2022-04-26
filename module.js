@@ -7,11 +7,11 @@ const IPv4_regex = /^(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9
 
 module.exports = async function (custom_servies = []) {
 
-    let services = [...new Set([...Services, ...custom_servies])]
+    const services = [...new Set([...Services, ...custom_servies])]
 
     return await Promise.any(services.map(service =>
             fetch(service).then(response => response.text()).then(text => {
-                let ip = text.replace(/(\r\n|\n|\r)/gm, '')
+                const ip = text.replace(/(\r\n|\n|\r)/gm, '')
                 if (IPv4_regex.test(ip)) {
                     return ip
                 } else {
