@@ -1,13 +1,15 @@
 [
     "http://eth0.me/",
-    "http://whatismyip.akamai.com",
+    "http://ipv4.whatismyip.akamai.com/",
     "https://api.ipify.org",
+    "https://checkip.amazonaws.com/",
     "https://checkip.amazonaws.com/",
     "https://dav.one/ask/ip",
     "https://diagnostic.opendns.com/myip",
     "https://echoip.xyz/",
     "https://ifconfig.me/ip",
     "https://ipecho.net/plain",
+    "https://ipinfo.io/ip",
     "https://ipv4.icanhazip.com/",
     "https://l2.io/ip",
     "https://v4.ident.me/"
