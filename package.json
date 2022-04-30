@@ -1,7 +1,7 @@
 {
   "name": "gip",
-  "version": "1.0.2",
-  "description": "Get your public IP address",
+  "version": "1.0.3",
+  "description": "Get your public IPv4 address",
   "author": "Avaray",
   "license": "MIT",
   "main": "module.js",
