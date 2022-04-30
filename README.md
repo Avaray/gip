@@ -35,4 +35,4 @@ Usage:
 Usage with custom services:  
 `> gip "https://ipv4.icanhazip.com/" "https://ifconfig.me/ip"`  
 Currently you need to pass full, valid URL (including protocol). It will change in next version(s).  
-Passing your own services will not prioritize them. You will get answer from fastest service anyway.
+Passing your own services will not prioritize them. You will get answer from the fastest service anyway.

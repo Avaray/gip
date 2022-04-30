@@ -1,12 +1,3 @@
 #! /usr/bin/env node
 
-const IP = require('./module.js');
-
-(async () => {
-    try {
-        const ip = await IP(process.argv.slice(2))
-        console.log(ip)
-    } catch {
-        return null
-    }
-})()
+(async()=>{try{console.log(await require('./module.js')(process.argv.slice(2)))}catch{return null}})()
