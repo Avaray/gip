@@ -9,6 +9,7 @@ It will fetch data from multiple services at the same time to give you results a
 Alternatively version higher than **17.5.0** with `--experimental-fetch` flag.
 
 ## Usage
+Installation:  
 `npm i gip`
 
 Example code:  
