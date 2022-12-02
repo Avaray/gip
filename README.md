@@ -10,7 +10,7 @@ Alternatively version higher than **17.5.0** with `--experimental-fetch` flag.
 
 ## Usage
 Installation:  
-`npm i gip`
+`npm i gip` or `pnpm add gip`
 
 Example code:  
 ````js
