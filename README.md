@@ -26,14 +26,19 @@ const gip = require('gip');
 })()
 ````
 
-## CLI usage
-Installation:  
-`npm i -g gip`
+## CLI installation
+`npm i -g gip` or `pnpm add -g gip`
 
-Usage:  
-`> gip`
+## CLI usage
+````bash
+gip
+# 133.74.20.69
+````
 
 Usage with custom services:  
-`> gip "https://ipv4.icanhazip.com/" "https://ifconfig.me/ip"`  
+````bash
+gip "https://ipv4.icanhazip.com/" "https://ifconfig.me/ip"
+# 133.74.20.69
+````
 Currently you need to pass full, valid URL (including protocol). It will change in next version(s).  
 Passing your own services will not prioritize them. You will get answer from the fastest service anyway.
