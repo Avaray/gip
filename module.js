@@ -1,7 +1,7 @@
 // This removes Warning about experimental Fetch API feature
 process.removeAllListeners('warning');
 
-const Services = require('./services.json');
+const services = require('./services.json');
 
 const IPv4_regex = /^(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$/
 
@@ -17,9 +17,9 @@ module.exports = async function (custom_services = []) {
         }
     }
 
-    const services = [...new Set([...Services, ...custom_services_normalized])]
+    const Services = [...new Set([...services, ...custom_services_normalized])]
 
-    return await Promise.any(services.map(service =>
+    return await Promise.any(Services.map(service =>
 
             fetch(service).then(response => response.text()).then(text => {
                 const ip = text.replace(/(\r\n|\n|\r)/gm, '')
