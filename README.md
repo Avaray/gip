@@ -6,7 +6,6 @@ It will fetch data from multiple services at the same time to give you results a
 
 ## Requirements
 [NodeJS](https://nodejs.org/en/download) version **18.0.0** or higher.  
-Alternatively version higher than **17.5.0** with `--experimental-fetch` flag.
 
 ## Usage
 Installation:  
