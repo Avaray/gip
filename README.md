@@ -60,6 +60,6 @@ gip ipv4.icanhazip.com ifconfig.me/ip
 
 ## Additional info
 
-Passing your own services will not prioritize them. You will get answer from the fastest service anyway. You can check current list [here](https://github.com/Avaray/gip/blob/main/services.json).
+- Passing your own services will not prioritize them. You will get answer from the fastest service anyway. You can check current list [here](https://github.com/Avaray/gip/blob/main/services.json).
 
-If you pass service without specified [protocol](https://en.wikipedia.org/wiki/Hypertext_Transfer_Protocol) - [GIP](https://www.npmjs.com/package/gip) will treat it as [HTTPS](https://en.wikipedia.org/wiki/HTTPS).
+- If you pass service without specified [protocol](https://en.wikipedia.org/wiki/Hypertext_Transfer_Protocol) - [GIP](https://www.npmjs.com/package/gip) will treat it as [HTTPS](https://en.wikipedia.org/wiki/HTTPS).
