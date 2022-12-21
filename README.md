@@ -24,6 +24,22 @@ const gip = require('gip');
 })()
 ````
 
+Usage with custom services:  
+````js
+const gip = require('gip');
+
+const my_services = ['https://ipv4.icanhazip.com/', 'ifconfig.me/ip'];
+
+(async () => {
+    try {
+        const ip = await gip(my_services)
+        console.log(ip)
+    } catch (error) {
+        console.log(`Can't get your IP. Reason: ${error}`)
+    }
+})()
+````
+
 ## CLI installation
 `npm i -g gip` or `pnpm add -g gip`
 
@@ -42,4 +58,8 @@ gip ipv4.icanhazip.com ifconfig.me/ip
 # 133.74.20.69
 ````
 
-Passing your own services will not prioritize them. You will get answer from the fastest service anyway.
+## Additional info
+
+Passing your own services will not prioritize them. You will get answer from the fastest service anyway. You can check current list [here](https://github.com/Avaray/gip/blob/main/services.json).
+
+If you pass service without specified [protocol](https://en.wikipedia.org/wiki/Hypertext_Transfer_Protocol) - [GIP](https://www.npmjs.com/package/gip) will treat it as [HTTPS](https://en.wikipedia.org/wiki/HTTPS).

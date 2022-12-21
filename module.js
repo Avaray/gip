@@ -10,7 +10,7 @@ module.exports = async function (custom_services = []) {
     custom_services.forEach((s, index) => {
         !/^https?:\/\//.test(s) && (custom_services[index] = `https://${s}`)
     })
-
+    
     const Services = [...new Set([...services, ...custom_services])]
 
     return await Promise.any(Services.map(service =>
