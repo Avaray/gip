@@ -8,7 +8,7 @@ const IPv4_regex = /^(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9
 module.exports = async function (custom_services = []) {
 
     custom_services.forEach((s, index) => {
-        !/^https?:\/\//.test(s) && (custom_services[index] = `https://${s}`)
+        !/^https?:\/\//.test(s) && (custom_services[index] = `https://${s.replace(/^\W+/g, '')}`)
     })
     
     const Services = [...new Set([...services, ...custom_services])]
