@@ -1,17 +1,16 @@
 # 🐷 GIP (Get IP)
 
-[GIP](https://www.npmjs.com/package/gip) is a [Node.js](https://nodejs.org/en/) module and CLI tool for getting your Public [IPv4](https://en.wikipedia.org/wiki/IPv4) address using popular (or less popular) "IP echo" services. Dependency free. Created with newest feature of Node.js - [Fetch API](https://nodejs.org/en/blog/release/v18.0.0/).  
+[GIP](https://www.npmjs.com/package/gip) is a [Node.js](https://nodejs.org/en/) module and [CLI](https://en.wikipedia.org/wiki/Command-line_interface) tool for getting your Public [IPv4](https://en.wikipedia.org/wiki/IPv4) address using popular (or less popular) "IP echo" services. Dependency free. Created with newest feature of Node.js - [Fetch API](https://nodejs.org/en/blog/release/v18.0.0/).  
 
 It will fetch data from multiple services at the same time to give you results as fast as possible.
 
 ## Requirements
 [NodeJS](https://nodejs.org/en/download) version **18.0.0** or higher.  
 
-## Usage
-Installation:  
+## Installation
 `npm i gip` or `pnpm add gip`
 
-Example code:  
+## Usage
 ````js
 const gip = require('gip'); 
 
