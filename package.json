@@ -1,12 +1,12 @@
 {
   "name": "gip",
-  "version": "1.0.8",
+  "version": "2.0.0",
   "description": "Get your public IPv4 address",
   "author": "Avaray",
   "license": "MIT",
-  "main": "module.js",
+  "main": "module.mjs",
   "bin": {
-    "gip": "cli.js"
+    "gip": "cli.mjs"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"

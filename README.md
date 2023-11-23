@@ -1,18 +1,24 @@
 # 🐷 GIP (Get IP)
 
-[GIP](https://www.npmjs.com/package/gip) is a [Node.js](https://nodejs.org/en/) module and [CLI](https://en.wikipedia.org/wiki/Command-line_interface) tool for getting your Public [IPv4](https://en.wikipedia.org/wiki/IPv4) address using popular (or less popular) "IP echo" services. Dependency free. Created with newest feature of Node.js - [Fetch API](https://nodejs.org/en/blog/release/v18.0.0/).  
-
-It will fetch data from multiple services at the same time to give you results as fast as possible.
+[GIP](https://www.npmjs.com/package/gip) is a [Node.js](https://nodejs.org/en/) dependency-free tool for getting your Public [IPv4](https://en.wikipedia.org/wiki/IPv4) address using "IP echo" services. It will fetch data from multiple services at the same time to give you results as fast as possible.
 
 ## Requirements
-[NodeJS](https://nodejs.org/en/download) version **18.0.0** or higher.  
+[NodeJS](https://nodejs.org/en/download) version **18.0.0** or higher, becuse of [Fetch API](https://nodejs.org/en/blog/release/v18.0.0/). 
 
 ## Installation
-`npm i gip` or `pnpm add gip`
+Using [NPM](https://docs.npmjs.com/cli/v10/commands/npm-install)
+```bash
+npm i gip
+```
+
+Using [PNPM](https://pnpm.io/pnpm-cli#commands)
+```bash
+pnpm add gip
+```
 
 ## Usage
 ````js
-const gip = require('gip'); 
+import gip from 'gip'
 
 (async () => {
     try {
@@ -26,9 +32,9 @@ const gip = require('gip');
 
 Usage with custom services:  
 ````js
-const gip = require('gip');
+import gip from 'gip'
 
-const my_services = ['https://ipv4.icanhazip.com/', 'ifconfig.me/ip'];
+const my_services = ['https://ipv4.icanhazip.com/', 'ifconfig.me/ip']
 
 (async () => {
     try {
@@ -40,8 +46,16 @@ const my_services = ['https://ipv4.icanhazip.com/', 'ifconfig.me/ip'];
 })()
 ````
 
-## CLI installation
-`npm i -g gip` or `pnpm add -g gip`
+## [CLI](https://en.wikipedia.org/wiki/Command-line_interface) installation
+Using [NPM](https://docs.npmjs.com/cli/v10/commands/npm-install)
+```bash
+npm i -g gip
+```
+
+Using [PNPM](https://pnpm.io/pnpm-cli#commands)
+```bash
+pnpm add -g gip
+```
 
 ## CLI usage
 ````bash
