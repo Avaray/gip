@@ -34,11 +34,11 @@ Usage with custom services:
 ````js
 import gip from 'gip'
 
-const my_services = ['https://ipv4.icanhazip.com/', 'ifconfig.me/ip']
+const myServices = ['https://ipv4.icanhazip.com/', 'ifconfig.me/ip']
 
 (async () => {
     try {
-        const ip = await gip(my_services)
+        const ip = await gip(myServices)
         console.log(ip)
     } catch (error) {
         console.log(`Can't get your IP. Reason: ${error}`)
