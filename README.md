@@ -57,7 +57,7 @@ Using [PNPM](https://pnpm.io/pnpm-cli#commands)
 pnpm add -g gip
 ```
 
-## CLI usage
+## [CLI](https://en.wikipedia.org/wiki/Command-line_interface) usage
 ````bash
 gip
 # 133.74.20.69
@@ -74,6 +74,6 @@ gip ipv4.icanhazip.com ifconfig.me/ip
 
 ## Additional info
 
-- Passing your own services will not prioritize them. You will get answer from the fastest service anyway. List of services is located in file [services.json](https://github.com/Avaray/gip/blob/main/services.json)
+- Passing your own services will not prioritize them. You will get answer from the fastest service anyway. List of services is located in file [services.mjs](https://github.com/Avaray/gip/blob/main/services.mjs)
 
 - If you pass service without specified [protocol](https://en.wikipedia.org/wiki/Hypertext_Transfer_Protocol) - [GIP](https://www.npmjs.com/package/gip) will treat it as [HTTPS](https://en.wikipedia.org/wiki/HTTPS)
