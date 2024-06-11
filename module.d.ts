@@ -1,1 +1,4 @@
-export default function gip(customServices?: string[]): Promise<string>;
+declare module 'gip' {
+  type Services = string[];
+  export default function gip(customServices?: Services): Promise<string>;
+}
