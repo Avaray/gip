@@ -1,4 +1,3 @@
-// This removes Warning about experimental Fetch API feature
 parseInt(process.version.match(/(?:v?)([\d]+)(?:\.)/)[1]) < 21 && process.removeAllListeners('warning');
 
 import services from './services.mjs';
