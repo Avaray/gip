@@ -1,6 +1,6 @@
 {
   "name": "gip",
-  "version": "2.0.0",
+  "version": "2.0.1",
   "description": "Get your public IPv4 address",
   "author": "Avaray",
   "license": "MIT",
@@ -11,6 +11,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
+  "types": "module.d.ts",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/Avaray/gip.git"
