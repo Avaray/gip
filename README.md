@@ -40,7 +40,9 @@ Usage with custom services:
 ```js
 import gip from 'gip';
 
-const myServices = ['https://ipv4.icanhazip.com/', 'ifconfig.me/ip'](async () => {
+const myServices = ['https://ipv4.icanhazip.com/', 'ifconfig.me/ip'];
+
+(async () => {
   try {
     const ip = await gip(myServices);
     console.log(ip);
