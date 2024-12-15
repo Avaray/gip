@@ -9,10 +9,10 @@ function parseArguments(args) {
   };
 
   for (let i = 0; i < args.length; i++) {
-    if (args[i] === "--ensure" && i + 1 < args.length) {
+    if ((args[i] === "--ensure" || args[i] === "-e") && i + 1 < args.length) {
       options.ensure = Number(args[i + 1]);
       i++; // Skip the next argument since it's the value for --ensure
-    } else if (args[i] === "--services") {
+    } else if (args[i] === "--services" || args[i] === "-s") {
       // Collect all URLs until the next argument or end of input
       while (i + 1 < args.length && !args[i + 1].startsWith("--")) {
         options.services.push(args[i + 1]);
