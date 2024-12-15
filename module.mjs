@@ -12,20 +12,22 @@ const gip = async (customServices = []) => {
 
   const allServices = [...new Set([...services, ...customServices])];
 
-  return await Promise.any(
-    allServices.map(async (service) => {
-      const response = await fetch(service);
-      const text = await response.text();
-      const ip = text.replace(/[^\d\.]*/gm, '');
-      if (IPv4_regex.test(ip)) {
-        return ip;
-      } else {
-        return Promise.reject(new Error(`${service} doesn't return valid IP address`));
-      }
-    }),
-  ).catch((error) => {
-    throw error;
-  });
+  try {
+    return await Promise.any(
+      allServices.map(async (service) => {
+        const response = await fetch(service);
+        const text = await response.text();
+        const ip = text.replace(/[^\d\.]*/gm, "");
+        if (IPv4_regex.test(ip)) {
+          return ip;
+        } else {
+          return Promise.reject(new Error(`${service} doesn't return valid IP address`));
+        }
+      }),
+    );
+  } catch {
+    throw new Error("Unable to fetch a valid IP address from any service");
+  }
 };
 
 export default gip;
