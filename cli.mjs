@@ -1,10 +1,33 @@
 #! /usr/bin/env node
 
-import gip from "./module.mjs";
 import process from "node:process";
+import gip from "./module.mjs";
+
+function parseArguments(args) {
+  const options = {
+    services: [],
+  };
+
+  for (let i = 0; i < args.length; i++) {
+    if ((args[i] === "--ensure" || args[i] === "-e") && i + 1 < args.length) {
+      options.ensure = Number(args[i + 1]);
+      i++; // Skip the next argument since it's the value for --ensure
+    } else if (args[i] === "--services" || args[i] === "-s") {
+      // Collect all URLs until the next argument or end of input
+      while (i + 1 < args.length && !args[i + 1].startsWith("--")) {
+        options.services.push(args[i + 1]);
+        i++; // Move to the next URL
+      }
+    }
+  }
+
+  return options;
+}
 
 try {
-  console.log(await gip(process.argv.slice(2)));
+  const options = parseArguments(process.argv.slice(2));
+  const result = await gip(options);
+  console.log(result);
   process.exit(0);
 } catch (error) {
   console.error(error.message);

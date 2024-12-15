@@ -1,66 +1,99 @@
 # 🐷 GIP (Get IP)
 
-[GIP](https://www.npmjs.com/package/gip) is a [Node.js](https://nodejs.org/en/) dependency-free tool for getting your Public [IPv4](https://en.wikipedia.org/wiki/IPv4) address using "IP echo" services. It will fetch data from multiple services at the same time to give you results as fast as possible.
+[GIP](https://www.npmjs.com/package/gip) is a [Node.js](https://nodejs.org/en/) dependency-free tool for getting Public
+[IPv4](https://en.wikipedia.org/wiki/IPv4) address using "IP echo" services. It will fetch data from multiple services at the same time to
+give you results as fast as possible.
+
+By default, GIP checks if an IP address is real by waiting for three same responses from different services. You can change this number by
+adjusting the `ensure` option.
+
+GIP offers over 20 services, and you can also add your own services using the `services` option. However, be aware that some services might
+not always be available or may not work properly. That's why it's a good idea to keep the `ensure` count at a reasonable level.
+
+Below you can find some examples of how to use these options.
 
 ## Requirements
 
 [NodeJS](https://nodejs.org/en/download) version **18.0.0** or higher, becuse of [Fetch API](https://nodejs.org/en/blog/release/v18.0.0/).
 
-## Installation
+## [Module](https://nodejs.org/api/esm.html#modules-ecmascript-modules) installation
 
-Using [NPM](https://docs.npmjs.com/cli/v10/commands/npm-install)
+[NPM](https://docs.npmjs.com/cli/v10/commands/npm-install)
 
 ```bash
 npm i gip
 ```
 
-Using [PNPM](https://pnpm.io/pnpm-cli#commands)
+[BUN](https://bun.sh/docs/cli/add)
+
+```bash
+bun add gip
+```
+
+[DENO](https://docs.deno.com/runtime/reference/cli/add/)
+
+```bash
+deno add npm:gip
+```
+
+[PNPM](https://pnpm.io/pnpm-cli#commands)
 
 ```bash
 pnpm add gip
 ```
 
-## Usage
+## [Module](https://nodejs.org/api/esm.html#modules-ecmascript-modules) usage
 
 ```js
-import gip from 'gip';
+import gip from "gip";
 
-(async () => {
-  try {
-    const ip = await gip();
-    console.log(ip);
-  } catch (error) {
-    console.log(`Can't get your IP. Reason: ${error}`);
-  }
-})();
+try {
+  const ip = await gip();
+  console.log(ip);
+} catch (error) {
+  console.log(`Can't get your IP. Reason: ${error}`);
+}
 ```
 
-Usage with custom services:
+Usage with **options**
 
 ```js
-import gip from 'gip';
+import gip from "gip";
 
-const myServices = ['https://ipv4.icanhazip.com/', 'ifconfig.me/ip'];
+const options = {
+  services: ["ipv4.icanhazip.com", "ifconfig.me/ip"],
+  ensure: 10,
+};
 
-(async () => {
-  try {
-    const ip = await gip(myServices);
-    console.log(ip);
-  } catch (error) {
-    console.log(`Can't get your IP. Reason: ${error}`);
-  }
-})();
+try {
+  const ip = await gip(options);
+  console.log(ip);
+} catch (error) {
+  console.log(`Can't get your IP. Reason: ${error}`);
+}
 ```
 
 ## [CLI](https://en.wikipedia.org/wiki/Command-line_interface) installation
 
-Using [NPM](https://docs.npmjs.com/cli/v10/commands/npm-install)
+[NPM](https://docs.npmjs.com/downloading-and-installing-packages-globally)
 
 ```bash
 npm i -g gip
 ```
 
-Using [PNPM](https://pnpm.io/pnpm-cli#commands)
+[BUN](https://bun.sh/docs/cli/install#global-packages)
+
+```bash
+bun i -g gip
+```
+
+[DENO](https://docs.deno.com/runtime/reference/cli/install/#global-installation)
+
+```bash
+deno i -g npm:gip
+```
+
+[PNPM](https://pnpm.io/cli/add#--global--g)
 
 ```bash
 pnpm add -g gip
@@ -73,18 +106,49 @@ gip
 # 133.74.20.69
 ```
 
-Usage with custom services:
+Passing custom services
 
 ```bash
-gip "https://ipv4.icanhazip.com/" "https://ifconfig.me/ip"
+gip --services "https://ipv4.icanhazip.com/" "https://ifconfig.me/ip"
 # 133.74.20.69
+```
 
-gip ipv4.icanhazip.com ifconfig.me/ip
+Setting ensure option
+
+```bash
+gip --ensure 10
 # 133.74.20.69
+```
+
+## [CLI](https://en.wikipedia.org/wiki/Command-line_interface) usage without installation
+
+[NPM]()
+
+```bash
+npx gip
+```
+
+[BUN](https://bun.sh/docs/cli/bunx)
+
+```bash
+bunx gip
+```
+
+[DENO](https://docs.deno.com/runtime/reference/cli/run/)
+
+```bash
+deno run --allow-net npm:gip
+```
+
+[PNPM](https://pnpm.io/pnpm-cli#commands)
+
+```bash
+pnpm dlx gip
 ```
 
 ## Additional info
 
-- Passing your own services will not prioritize them. You will get answer from the fastest service anyway. List of services is located in file [services.mjs](https://github.com/Avaray/gip/blob/main/services.mjs)
-
-- If you pass service without specified [protocol](https://en.wikipedia.org/wiki/Hypertext_Transfer_Protocol) - [GIP](https://www.npmjs.com/package/gip) will treat it as [HTTPS](https://en.wikipedia.org/wiki/HTTPS)
+- Passing your own services will not prioritize them. You will get answer from the fastest services anyway. List of services is located in
+  file [services.mjs](https://github.com/Avaray/gip/blob/main/services.mjs)
+- If you pass service without specified [protocol](https://en.wikipedia.org/wiki/Hypertext_Transfer_Protocol) -
+  [GIP](https://www.npmjs.com/package/gip) will treat it as [HTTPS](https://en.wikipedia.org/wiki/HTTPS)
