@@ -1,4 +1,7 @@
-declare module 'gip' {
-  type Services = string[];
-  export default function gip(customServices?: Services): Promise<string>;
+declare module "gip" {
+  interface Options {
+    services?: string[];
+    ensure?: number;
+  }
+  export default function gip(options?: Options): Promise<string | null>;
 }
