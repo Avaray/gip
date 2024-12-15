@@ -1,3 +1,4 @@
+import process from "node:process";
 parseInt(process.version.match(/(?:v?)([\d]+)(?:\.)/)[1]) < 21 && process.removeAllListeners("warning");
 
 import services from "./services.mjs";
