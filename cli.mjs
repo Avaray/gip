@@ -1,6 +1,6 @@
 #! /usr/bin/env node
 
-import gip from './module.mjs'
+import gip from "./module.mjs";
 
 try {
   console.log(await gip(process.argv.slice(2)))

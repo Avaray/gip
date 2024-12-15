@@ -1,13 +1,13 @@
-parseInt(process.version.match(/(?:v?)([\d]+)(?:\.)/)[1]) < 21 && process.removeAllListeners('warning');
+parseInt(process.version.match(/(?:v?)([\d]+)(?:\.)/)[1]) < 21 && process.removeAllListeners("warning");
 
-import services from './services.mjs';
+import services from "./services.mjs";
 
 const IPv4_regex =
   /^(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$/;
 
 const gip = async (customServices = []) => {
   customServices.forEach((s, index) => {
-    !/^https?:\/\//.test(s) && (customServices[index] = `https://${s.replace(/^\W+/g, '')}`);
+    !/^https?:\/\//.test(s) && (customServices[index] = `https://${s.replace(/^\W+/g, "")}`);
   });
 
   const allServices = [...new Set([...services, ...customServices])];
