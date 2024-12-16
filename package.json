@@ -1,6 +1,6 @@
 {
   "name": "gip",
-  "version": "3.0.1",
+  "version": "3.0.2",
   "description": "Get your public IPv4 address",
   "author": "Avaray",
   "license": "MIT",
@@ -34,7 +34,7 @@
     "public-ip"
   ],
   "engines": {
-    "node": ">=18.0.0"
+    "node": ">=20.0.0"
   },
   "bugs": {
     "url": "https://github.com/Avaray/gip/issues"

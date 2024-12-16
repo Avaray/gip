@@ -2,6 +2,7 @@
 
 import process from "node:process";
 import gip from "./module.mjs";
+import packageJson from "./package.json" with { type: "json" };
 
 function parseArguments(args) {
   const options = {
@@ -18,6 +19,10 @@ function parseArguments(args) {
         options.services.push(args[i + 1]);
         i++; // Move to the next URL
       }
+    } else if (args[i] === "--version" || args[i] === "-v") {
+      const version = packageJson.version;
+      console.log(version);
+      process.exit(0);
     }
   }
 

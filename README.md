@@ -14,7 +14,7 @@ Below you can find some examples of how to use these options.
 
 ## Requirements
 
-[NodeJS](https://nodejs.org/en/download) version **18.0.0** or higher, becuse of [Fetch API](https://nodejs.org/en/blog/release/v18.0.0/).
+[NodeJS](https://nodejs.org/en/download) version **20.0.0** or higher.
 
 ## [Module](https://nodejs.org/api/esm.html#modules-ecmascript-modules) installation
 
