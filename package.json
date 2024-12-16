@@ -17,19 +17,21 @@
     "url": "git+https://github.com/Avaray/gip.git"
   },
   "keywords": [
+    "address",
     "cli",
+    "dns",
+    "dependency-free",
+    "echo",
     "external",
-    "public",
+    "external-ip",
+    "fetch-api",
+    "fetch",
+    "internet-protocol",
     "iot",
     "ip",
     "ipv4",
-    "address",
-    "internet-protocol",
     "network",
-    "echo",
-    "fetch",
-    "fetch-api",
-    "dependency-free"
+    "public-ip"
   ],
   "engines": {
     "node": ">=18.0.0"
