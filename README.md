@@ -150,5 +150,5 @@ pnpm dlx gip
 
 - Passing your own services will not prioritize them. You will get answer from the fastest services anyway. List of services is located in
   file [services.mjs](https://github.com/Avaray/gip/blob/main/services.mjs)
-- If you pass service without specified [protocol](https://en.wikipedia.org/wiki/Hypertext_Transfer_Protocol) -
-  [GIP](https://www.npmjs.com/package/gip) will treat it as [HTTPS](https://en.wikipedia.org/wiki/HTTPS)
+- If you pass service without specified [protocol](https://en.wikipedia.org/wiki/Hypertext_Transfer_Protocol),
+  [HTTPS](https://en.wikipedia.org/wiki/HTTPS) will be used.
