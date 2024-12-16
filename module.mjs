@@ -6,7 +6,7 @@ import services from "./services.mjs";
 const IPv4_regex =
   /^(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$/;
 
-const gip = async ({ services: customServices = [], ensure: ensureCount = 3 } = {}) => {
+const gip = async ({ services: customServices = [], ensure = 3 } = {}) => {
   for (const [index, s] of customServices.entries()) {
     if (!/^https?:\/\//.test(s)) {
       customServices[index] = `https://${s.replace(/^\W+/g, "")}`;
@@ -15,9 +15,10 @@ const gip = async ({ services: customServices = [], ensure: ensureCount = 3 } = 
 
   const allServices = [...new Set([...services, ...customServices])];
 
-  if (ensureCount > allServices.length) throw new Error(`Maximum ensure count is ${allServices.length}`);
+  if (ensure > allServices.length) throw new Error(`Maximum ensure count is ${allServices.length}`);
 
-  ensureCount = ensureCount < 1 ? 1 : ensureCount;
+  // Ensure count must be at least 1
+  ensure = Math.max(1, ensure);
 
   const controller = new AbortController(); // Create an AbortController instance
   const signal = controller.signal; // Get the signal to pass to fetch
@@ -35,7 +36,7 @@ const gip = async ({ services: customServices = [], ensure: ensureCount = 3 } = 
           const currentCount = (ipCounts.get(trimmedIP) || 0) + 1;
           ipCounts.set(trimmedIP, currentCount);
           // Check if this IP has reached the ensure count
-          if (currentCount === ensureCount) {
+          if (currentCount === ensure) {
             controller.abort(); // Stop further requests
             return trimmedIP;
           }
@@ -55,13 +56,13 @@ const gip = async ({ services: customServices = [], ensure: ensureCount = 3 } = 
 
   // Find the IP that matches the ensure count
   for (const [ip, count] of ipCounts.entries()) {
-    if (count === ensureCount) {
+    if (count === ensure) {
       return ip;
     }
   }
 
   // If no IP meets the ensure count
-  throw new Error(`Not enough IP addresses found to meet the ensure count of ${ensureCount}`);
+  throw new Error(`Not enough IP addresses found to meet the ensure count of ${ensure}`);
 };
 
 export default gip;
