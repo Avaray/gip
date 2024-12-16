@@ -17,8 +17,10 @@
     "url": "git+https://github.com/Avaray/gip.git"
   },
   "keywords": [
+    "cli",
     "external",
     "public",
+    "iot",
     "ip",
     "ipv4",
     "address",
