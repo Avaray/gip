@@ -31,7 +31,8 @@
     "ip",
     "ipv4",
     "network",
-    "public-ip"
+    "public-ip",
+    "utility"
   ],
   "engines": {
     "node": ">=20.0.0"
