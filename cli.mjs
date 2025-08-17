@@ -33,7 +33,7 @@ try {
   const options = parseArguments(process.argv.slice(2));
   const result = await gip(options);
   console.log(result);
-  process.exit(0);
+  process.exitCode = 0;
 } catch (error) {
   console.error(error.message);
   process.exitCode = 1;
