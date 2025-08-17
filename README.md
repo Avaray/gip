@@ -24,10 +24,10 @@ Below you can find some examples of how to use these options.
 npm i gip
 ```
 
-[BUN](https://bun.sh/docs/cli/add)
+[PNPM](https://pnpm.io/pnpm-cli#commands)
 
 ```bash
-bun add gip
+pnpm add gip
 ```
 
 [DENO](https://docs.deno.com/runtime/reference/cli/add/)
@@ -36,10 +36,10 @@ bun add gip
 deno add npm:gip
 ```
 
-[PNPM](https://pnpm.io/pnpm-cli#commands)
+[BUN](https://bun.sh/docs/cli/add)
 
 ```bash
-pnpm add gip
+bun add gip
 ```
 
 ## [Module](https://nodejs.org/api/esm.html#modules-ecmascript-modules) usage
@@ -81,10 +81,10 @@ try {
 npm i -g gip
 ```
 
-[BUN](https://bun.sh/docs/cli/install#global-packages)
+[PNPM](https://pnpm.io/cli/add#--global--g)
 
 ```bash
-bun i -g gip
+pnpm add -g gip
 ```
 
 [DENO](https://docs.deno.com/runtime/reference/cli/install/#global-installation)
@@ -93,10 +93,10 @@ bun i -g gip
 deno i -g npm:gip
 ```
 
-[PNPM](https://pnpm.io/cli/add#--global--g)
+[BUN](https://bun.sh/docs/cli/install#global-packages)
 
 ```bash
-pnpm add -g gip
+bun i -g gip
 ```
 
 ## [CLI](https://en.wikipedia.org/wiki/Command-line_interface) usage
@@ -106,17 +106,17 @@ gip
 # 133.74.20.69
 ```
 
-Passing custom services
-
-```bash
-gip --services "https://ipv4.icanhazip.com/" "https://ifconfig.me/ip"
-# 133.74.20.69
-```
-
 Setting ensure option
 
 ```bash
 gip --ensure 10
+# 133.74.20.69
+```
+
+Passing custom services
+
+```bash
+gip --services "https://ipv4.icanhazip.com/" "https://ifconfig.me/ip"
 # 133.74.20.69
 ```
 
@@ -128,10 +128,10 @@ gip --ensure 10
 npx gip
 ```
 
-[BUN](https://bun.sh/docs/cli/bunx)
+[PNPM](https://pnpm.io/pnpm-cli#commands)
 
 ```bash
-bunx gip
+pnpm dlx gip
 ```
 
 [DENO](https://docs.deno.com/runtime/reference/cli/run/)
@@ -140,10 +140,10 @@ bunx gip
 deno run --allow-net npm:gip
 ```
 
-[PNPM](https://pnpm.io/pnpm-cli#commands)
+[BUN](https://bun.sh/docs/cli/bunx)
 
 ```bash
-pnpm dlx gip
+bunx gip
 ```
 
 ## Additional info
