@@ -8,9 +8,6 @@
   "bin": {
     "gip": "cli.mjs"
   },
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
   "types": "module.d.ts",
   "repository": {
     "type": "git",
