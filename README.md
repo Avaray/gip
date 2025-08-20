@@ -7,9 +7,11 @@
 accurate results as quickly as possible. By default, GIP verifies the IP address by waiting for three matching responses from different
 services, and you can customize this number using the `ensure` option.
 
-GIP uses more than 20 different 'echo IP' websites to obtain your public IPv4 address, and you can add your own via the `services` option.
-Since these services are external, their availability and reliability may vary. To account for this, setting the `ensure` count to a
-reasonable number is advisable."
+GIP uses more than 20 different "echo IP" websites, and you can add your own via the `services` option. Since these services are external,
+their availability and reliability may vary. To account for this, setting the `ensure` count to a reasonable number is advisable.
+
+GIP uses more than 20 different "echo IP" websites, and you can add your own with the `services` option. Because these services are
+external, their availability and reliability may vary. You can reduce risk by choosing a sensible `ensure` count.
 
 ## Requirements
 
