@@ -1,16 +1,15 @@
 # 🐷 GIP (Get IP)
 
-[GIP](https://www.npmjs.com/package/gip) is a [Node.js](https://nodejs.org/en/) dependency-free tool for getting Public
-[IPv4](https://en.wikipedia.org/wiki/IPv4) address using "IP echo" services. It will fetch data from multiple services at the same time to
-give you results as fast as possible.
+[GIP](https://www.npmjs.com/package/gip) is a dependency-free, TypeScript-friendly module and
+[CLI](https://en.wikipedia.org/wiki/Command-line_interface) tool that uses the
+[Fetch API](https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API) to retrieve your real public
+[IPv4](https://en.wikipedia.org/wiki/IPv4) address from "IP echo" services. It fetches data concurrently from multiple services to provide
+accurate results as quickly as possible. By default, GIP verifies the IP address by waiting for three matching responses from different
+services, and you can customize this number using the `ensure` option.
 
-By default, GIP checks if an IP address is real by waiting for three same responses from different services. You can change this number by
-adjusting the `ensure` option.
-
-GIP offers over 20 services, and you can also add your own services using the `services` option. However, be aware that some services might
-not always be available or may not work properly. That's why it's a good idea to keep the `ensure` count at a reasonable level.
-
-Below you can find some examples of how to use these options.
+GIP uses more than 20 different 'echo IP' websites to obtain your public IPv4 address, and you can add your own via the `services` option.
+Since these services are external, their availability and reliability may vary. To account for this, setting the `ensure` count to a
+reasonable number is advisable."
 
 ## Requirements
 
