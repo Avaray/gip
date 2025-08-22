@@ -1,6 +1,7 @@
 # 🐷 GIP (Get IP)
 
-Dependency-free, TypeScript-friendly module and [CLI](https://en.wikipedia.org/wiki/Command-line_interface) tool that uses the
+Dependency-free, [TypeScript](https://www.typescriptlang.org/)-friendly module and
+[CLI](https://en.wikipedia.org/wiki/Command-line_interface) tool that uses the
 [Fetch API](https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API) to retrieve your real public
 [IPv4](https://en.wikipedia.org/wiki/IPv4) address from "IP echo" services. It fetches data concurrently from multiple services to provide
 accurate results as quickly as possible. By default, GIP verifies the IP address by waiting for three matching responses from different
