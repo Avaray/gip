@@ -61,6 +61,7 @@ import gip from "gip";
 const options = {
   services: ["ipv4.icanhazip.com", "ifconfig.me/ip"],
   ensure: 10,
+  verbose: true,
 };
 
 try {

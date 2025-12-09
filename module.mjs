@@ -6,7 +6,7 @@ import services from "./services.mjs";
 const IPv4_regex =
   /^(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$/;
 
-const gip = async ({ services: customServices = [], ensure = 3, timeout = 10000 } = {}) => {
+const gip = async ({ services: customServices = [], ensure = 3, timeout = 10000, verbose = true } = {}) => {
   for (const [index, s] of customServices.entries()) {
     if (!/^https?:\/\//.test(s)) {
       customServices[index] = `https://${s.replace(/^\W+/g, "")}`;
@@ -30,7 +30,7 @@ const gip = async ({ services: customServices = [], ensure = 3, timeout = 10000 
 
   // Map to store IP addresses and their counts
   const ipCounts = new Map();
-  
+
   // Track the first IP to reach the ensure count (edge case handling)
   let firstValidIP = null;
   let isResolved = false;
@@ -47,7 +47,7 @@ const gip = async ({ services: customServices = [], ensure = 3, timeout = 10000 
           // Increment count for this IP
           const currentCount = (ipCounts.get(trimmedIP) || 0) + 1;
           ipCounts.set(trimmedIP, currentCount);
-          
+
           // Check if this IP has reached the ensure count
           if (currentCount === ensure && !firstValidIP) {
             firstValidIP = trimmedIP; // Mark as the first valid IP
@@ -60,7 +60,7 @@ const gip = async ({ services: customServices = [], ensure = 3, timeout = 10000 
         return null;
       })
       .catch((err) => {
-        if (err.name !== "AbortError") {
+        if (err.name !== "AbortError" && verbose) {
           console.error("Fetch error:", err);
         }
         return null;
@@ -83,12 +83,12 @@ const gip = async ({ services: customServices = [], ensure = 3, timeout = 10000 
   // If no IP meets the ensure count, provide detailed error
   const ipResults = Array.from(ipCounts.entries())
     .map(([ip, count]) => `${ip}(${count})`)
-    .join(', ');
-  
-  const errorMessage = ipResults 
+    .join(", ");
+
+  const errorMessage = ipResults
     ? `Not enough IP addresses found to meet ensure count of ${ensure}. Found: ${ipResults}`
     : `No valid IP addresses found within ${timeout}ms timeout`;
-    
+
   throw new Error(errorMessage);
 };
 

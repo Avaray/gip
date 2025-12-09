@@ -1,6 +1,6 @@
 {
   "name": "gip",
-  "version": "3.0.3",
+  "version": "3.0.4",
   "description": "Dependency-free, TypeScript-friendly module and CLI tool that uses the Fetch API to retrieve your real public IPv4 address.",
   "author": "Avaray",
   "license": "MIT",
@@ -20,6 +20,7 @@
     "dependency-free",
     "echo",
     "external",
+    "external-address",
     "external-ip",
     "fetch-api",
     "fetch",

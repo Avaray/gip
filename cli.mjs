@@ -31,7 +31,7 @@ function parseArguments(args) {
 
 try {
   const options = parseArguments(process.argv.slice(2));
-  const result = await gip(options);
+  const result = await gip({ ...options, verbose: false });
   console.log(result);
   process.exitCode = 0;
 } catch (error) {
