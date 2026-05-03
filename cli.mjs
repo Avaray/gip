@@ -22,7 +22,7 @@ function parseArguments(args) {
     } else if (args[i] === "--version" || args[i] === "-v") {
       const version = packageJson.version;
       console.log(version);
-      process.exitCode = 0;
+      process.exit(0);
     }
   }
 
