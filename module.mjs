@@ -33,61 +33,55 @@ const gip = async ({ services: customServices = [], ensure = 3, timeout = 10000,
   let firstValidIP = null;
   let isResolved = false;
 
-  const promises = allServices.map((url) =>
-    fetch(url, { signal })
-      .then((res) => {
-        if (!res.ok) throw new Error(`HTTP ${res.status}`);
-        return res.text();
-      })
-      .then((ip) => {
-        const trimmedIP = ip.trim();
-        if (IPv4_regex.test(trimmedIP) && !isResolved) {
-          // Increment count for this IP
-          const currentCount = (ipCounts.get(trimmedIP) || 0) + 1;
-          ipCounts.set(trimmedIP, currentCount);
+  return new Promise((resolve, reject) => {
+    const promises = allServices.map((url) =>
+      fetch(url, { signal })
+        .then((res) => {
+          if (!res.ok) throw new Error(`HTTP ${res.status}`);
+          return res.text();
+        })
+        .then((ip) => {
+          const trimmedIP = ip.trim();
+          if (IPv4_regex.test(trimmedIP) && !isResolved) {
+            // Increment count for this IP
+            const currentCount = (ipCounts.get(trimmedIP) || 0) + 1;
+            ipCounts.set(trimmedIP, currentCount);
 
-          // Check if this IP has reached the ensure count
-          if (currentCount === ensure && !firstValidIP) {
-            firstValidIP = trimmedIP; // Mark as the first valid IP
-            isResolved = true;
-            clearTimeout(timeoutId); // Clear timeout
-            controller.abort(); // Stop further requests
-            return trimmedIP;
+            // Check if this IP has reached the ensure count
+            if (currentCount === ensure && !firstValidIP) {
+              firstValidIP = trimmedIP; // Mark as the first valid IP
+              isResolved = true;
+              clearTimeout(timeoutId); // Clear timeout
+              controller.abort(); // Stop further requests
+              resolve(trimmedIP); // Resolve immediately!
+              return trimmedIP;
+            }
           }
-        }
-        return null;
-      })
-      .catch((err) => {
-        if (err.name !== "AbortError" && verbose) {
-          console.error("Fetch error:", err);
-        }
-        return null;
-      })
-  );
+          return null;
+        })
+        .catch((err) => {
+          if (err.name !== "AbortError" && verbose) {
+            console.error("Fetch error:", err);
+          }
+          return null;
+        })
+    );
 
-  try {
-    // Wait for all promises to settle
-    await Promise.allSettled(promises);
-  } finally {
-    // Always clear timeout
-    clearTimeout(timeoutId);
-  }
+    Promise.allSettled(promises).then(() => {
+      if (!isResolved) {
+        clearTimeout(timeoutId);
+        const ipResults = Array.from(ipCounts.entries())
+          .map(([ip, count]) => `${ip}(${count})`)
+          .join(", ");
 
-  // Return the first IP that reached the ensure count
-  if (firstValidIP) {
-    return firstValidIP;
-  }
+        const errorMessage = ipResults
+          ? `Not enough IP addresses found to meet ensure count of ${ensure}. Found: ${ipResults}`
+          : `No valid IP addresses found within ${timeout}ms timeout`;
 
-  // If no IP meets the ensure count, provide detailed error
-  const ipResults = Array.from(ipCounts.entries())
-    .map(([ip, count]) => `${ip}(${count})`)
-    .join(", ");
-
-  const errorMessage = ipResults
-    ? `Not enough IP addresses found to meet ensure count of ${ensure}. Found: ${ipResults}`
-    : `No valid IP addresses found within ${timeout}ms timeout`;
-
-  throw new Error(errorMessage);
+        reject(new Error(errorMessage));
+      }
+    });
+  });
 };
 
 export default gip;

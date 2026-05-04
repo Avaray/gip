@@ -39,8 +39,8 @@ try {
   const options = parseArguments(process.argv.slice(2));
   const result = await gip({ ...options, verbose: false });
   console.log(result);
-  process.exitCode = 0;
+  setTimeout(() => process.exit(0), 10);
 } catch (error) {
   console.error(error.message);
-  process.exitCode = 1;
+  setTimeout(() => process.exit(1), 10);
 }
