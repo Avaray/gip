@@ -7,13 +7,11 @@ const IPv4_regex =
   /^(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$/;
 
 const gip = async ({ services: customServices = [], ensure = 3, timeout = 10000, verbose = true } = {}) => {
-  for (const [index, s] of customServices.entries()) {
-    if (!/^https?:\/\//.test(s)) {
-      customServices[index] = `https://${s.replace(/^\W+/g, "")}`;
-    }
-  }
+  const formattedCustomServices = customServices.map(s => 
+    /^https?:\/\//.test(s) ? s : `https://${s.replace(/^\W+/g, "")}`
+  );
 
-  const allServices = [...new Set([...services, ...customServices])];
+  const allServices = [...new Set([...services, ...formattedCustomServices])];
 
   if (ensure > allServices.length) throw new Error(`Maximum ensure count is ${allServices.length}`);
 

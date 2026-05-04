@@ -2,7 +2,8 @@ declare module "gip" {
   interface Options {
     services?: string[];
     ensure?: number;
+    timeout?: number;
     verbose?: boolean;
   }
-  export default function gip(options?: Options): Promise<string | null>;
+  export default function gip(options?: Options): Promise<string>;
 }

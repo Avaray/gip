@@ -12,11 +12,16 @@ function parseArguments(args) {
 
   for (let i = 0; i < args.length; i++) {
     if ((args[i] === "--ensure" || args[i] === "-e") && i + 1 < args.length) {
-      options.ensure = Number(args[i + 1]);
+      const parsed = Number(args[i + 1]);
+      if (Number.isNaN(parsed)) {
+        console.error(`Error: Invalid value for ensure flag: '${args[i + 1]}'`);
+        process.exit(1);
+      }
+      options.ensure = parsed;
       i++; // Skip the next argument since it's the value for --ensure
     } else if (args[i] === "--services" || args[i] === "-s") {
       // Collect all URLs until the next argument or end of input
-      while (i + 1 < args.length && !args[i + 1].startsWith("--")) {
+      while (i + 1 < args.length && !args[i + 1].startsWith("-")) {
         options.services.push(args[i + 1]);
         i++; // Move to the next URL
       }
