@@ -1,4 +1,4 @@
-#!/usr/bin/env sh
+#!/usr/bin/env node
 ':' //; command -v node >/dev/null 2>&1 && exec node "$0" "$@"; command -v bun >/dev/null 2>&1 && exec bun "$0" "$@"; command -v deno >/dev/null 2>&1 && exec deno run "$0" "$@"; echo "Error: Please install node, bun, or deno" >&2; exit 1
 
 import process from "node:process";
