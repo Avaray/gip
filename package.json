@@ -1,27 +1,25 @@
 {
-  "name": "gip",
-  "version": "3.1.0",
-  "description": "Dependency-free, TypeScript-friendly module and CLI tool that uses the Fetch API to retrieve your real public IPv4 address.",
   "author": "Avaray",
-  "license": "MIT",
-  "main": "module.mjs",
   "bin": {
     "gip": "cli.mjs"
   },
-  "types": "module.d.ts",
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/Avaray/gip.git"
+  "bugs": {
+    "url": "https://github.com/Avaray/gip/issues"
   },
+  "description": "Dependency-free, TypeScript-friendly module and CLI tool that uses the Fetch API to retrieve your real public IPv4 address.",
+  "engines": {
+    "node": ">=20.0.0"
+  },
+  "homepage": "https://github.com/Avaray/gip#readme",
   "keywords": [
     "address",
     "cli",
-    "dns",
     "dependency-free",
+    "dns",
     "echo",
-    "external",
     "external-address",
     "external-ip",
+    "external",
     "fetch-api",
     "fetch",
     "internet-protocol",
@@ -32,11 +30,13 @@
     "public-ip",
     "utility"
   ],
-  "engines": {
-    "node": ">=20.0.0"
+  "license": "MIT",
+  "main": "module.mjs",
+  "name": "gip",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Avaray/gip.git"
   },
-  "bugs": {
-    "url": "https://github.com/Avaray/gip/issues"
-  },
-  "homepage": "https://github.com/Avaray/gip#readme"
+  "types": "module.d.ts",
+  "version": "3.1.1"
 }
