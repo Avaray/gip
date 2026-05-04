@@ -16,7 +16,7 @@ external, their availability and reliability may vary. You can reduce risk by ch
 
 ## [Module](https://nodejs.org/api/esm.html#modules-ecmascript-modules) installation
 
-[NPM](https://docs.npmjs.com/cli/v10/commands/npm-install)
+[NPM](https://docs.npmjs.com/cli/v11/commands/npm-install)
 
 ```bash
 npm i gip
@@ -28,16 +28,16 @@ npm i gip
 pnpm add gip
 ```
 
-[DENO](https://docs.deno.com/runtime/reference/cli/add/)
-
-```bash
-deno add npm:gip
-```
-
 [BUN](https://bun.sh/docs/cli/add)
 
 ```bash
 bun add gip
+```
+
+[DENO](https://docs.deno.com/runtime/reference/cli/add/)
+
+```bash
+deno add npm:gip
 ```
 
 ## [Module](https://nodejs.org/api/esm.html#modules-ecmascript-modules) usage
@@ -86,16 +86,16 @@ npm i -g gip
 pnpm add -g gip
 ```
 
-[DENO](https://docs.deno.com/runtime/reference/cli/install/#global-installation)
-
-```bash
-deno i -g npm:gip
-```
-
 [BUN](https://bun.sh/docs/cli/install#global-packages)
 
 ```bash
 bun i -g gip
+```
+
+[DENO](https://docs.deno.com/runtime/reference/cli/install/#global-installation)
+
+```bash
+deno i -g npm:gip
 ```
 
 ## [CLI](https://en.wikipedia.org/wiki/Command-line_interface) usage
@@ -133,16 +133,16 @@ npx gip
 pnpm dlx gip
 ```
 
-[DENO](https://docs.deno.com/runtime/reference/cli/run/)
-
-```bash
-deno run --allow-net npm:gip
-```
-
 [BUN](https://bun.sh/docs/cli/bunx)
 
 ```bash
 bunx gip
+```
+
+[DENO](https://docs.deno.com/runtime/reference/cli/run/)
+
+```bash
+deno run --allow-net npm:gip
 ```
 
 ## Additional info
