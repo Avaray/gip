@@ -1,4 +1,5 @@
-#! /usr/bin/env node
+#!/usr/bin/env sh
+':' //; exec node "$0" "$@" || exec bun "$0" "$@" || exec deno run "$0" "$@"
 
 import process from "node:process";
 import gip from "./module.mjs";
