@@ -121,7 +121,7 @@ gip --services "https://ipv4.icanhazip.com/" "https://ifconfig.me/ip"
 
 ## [CLI](https://en.wikipedia.org/wiki/Command-line_interface) usage without installation
 
-[NPM]()
+[NPM](https://docs.npmjs.com/cli/v10/commands/npx)
 
 ```bash
 npx gip
