@@ -22,7 +22,7 @@ external, their availability and reliability may vary. You can reduce risk by ch
 npm i gip
 ```
 
-[PNPM](https://pnpm.io/pnpm-cli#commands)
+[PNPM](https://pnpm.io/cli/add)
 
 ```bash
 pnpm add gip
@@ -121,16 +121,16 @@ gip --services "https://ipv4.icanhazip.com/" "https://ifconfig.me/ip"
 
 ## [CLI](https://en.wikipedia.org/wiki/Command-line_interface) usage without installation
 
-[NPM](https://docs.npmjs.com/cli/v10/commands/npx)
+[NPM](https://docs.npmjs.com/cli/v11/commands/npx)
 
 ```bash
 npx gip
 ```
 
-[PNPM](https://pnpm.io/pnpm-cli#commands)
+[PNPM](https://pnpm.io/cli/pnx)
 
 ```bash
-pnpm dlx gip
+pnx gip
 ```
 
 [BUN](https://bun.sh/docs/cli/bunx)
