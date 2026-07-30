@@ -52,10 +52,39 @@ describe("gip module", () => {
   });
 
   test("should throw if ensure count exceeds total number of services", async () => {
-    const totalServices = defaultServices.length;
+    const totalServices = defaultServices.ipv4.length + defaultServices.ipv6.length;
     await expect(
       gip({ ensure: totalServices + 1 })
     ).rejects.toThrow(/Maximum ensure count/);
+  });
+
+  // --- Type handling ---
+
+  test("should resolve IPv6 address when type is ipv6", async () => {
+    globalThis.fetch = async () => new Response("2001:0db8:85a3:0000:0000:8a2e:0370:7334");
+    
+    // We pass a custom service just so it has something to fetch (since defaultServices.ipv6 is empty currently)
+    const ip = await gip({ services: ["ipv6.test"], ensure: 1, type: "ipv6", timeout: 2000 });
+    expect(ip).toBe("2001:0db8:85a3:0000:0000:8a2e:0370:7334");
+  });
+
+  test("should ignore IPv4 address when type is ipv6", async () => {
+    let callCount = 0;
+    globalThis.fetch = async () => {
+      callCount++;
+      if (callCount < 2) return new Response("1.2.3.4");
+      return new Response("::1");
+    };
+
+    const ip = await gip({ services: ["ipv6.test1", "ipv6.test2"], ensure: 1, type: "ipv6", timeout: 2000 });
+    expect(ip).toBe("::1");
+  });
+
+  test("should resolve first matched type (IPv6) when type is automatic", async () => {
+    globalThis.fetch = async () => new Response("2001:0db8::1");
+    
+    const ip = await gip({ services: ["auto.test"], ensure: 1, type: "automatic", timeout: 2000 });
+    expect(ip).toBe("2001:0db8::1");
   });
 
   // --- Services URL formatting ---

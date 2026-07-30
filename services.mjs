@@ -1,4 +1,5 @@
-export default [
+export default {
+  ipv4: [
   "http://eth0.me",
   "http://ipv4.whatismyip.akamai.com",
   "https://2ip.io/",
@@ -43,4 +44,6 @@ export default [
   "https://wtfismyip.com/text",
   "https://www.trackip.net/ip",
   "https://www.uc.cn/ip",
-];
+  ],
+  ipv6: [],
+};

@@ -25,6 +25,14 @@ function parseArguments(args) {
         options.services.push(args[i + 1]);
         i++; // Move to the next URL
       }
+    } else if ((args[i] === "--type" || args[i] === "-t") && i + 1 < args.length) {
+      const typeArg = args[i + 1];
+      if (!["ipv4", "ipv6", "automatic"].includes(typeArg)) {
+        console.error(`Error: Invalid value for type flag: '${typeArg}'. Expected "ipv4", "ipv6", or "automatic".`);
+        process.exit(1);
+      }
+      options.type = typeArg;
+      i++; // Skip the next argument
     } else if (args[i] === "--version" || args[i] === "-v") {
       const version = packageJson.version;
       console.log(version);
@@ -39,8 +47,7 @@ try {
   const options = parseArguments(process.argv.slice(2));
   const result = await gip({ ...options, verbose: false });
   console.log(result);
-  setTimeout(() => process.exit(0), 10);
 } catch (error) {
   console.error(error.message);
-  setTimeout(() => process.exit(1), 10);
+  process.exitCode = 1;
 }

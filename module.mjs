@@ -6,12 +6,26 @@ import services from "./services.mjs";
 const IPv4_regex =
   /^(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$/;
 
-const gip = async ({ services: customServices = [], ensure = 3, timeout = 10000, verbose = true } = {}) => {
+const IPv6_regex =
+  /^(([0-9a-fA-F]{1,4}:){7,7}[0-9a-fA-F]{1,4}|([0-9a-fA-F]{1,4}:){1,7}:|([0-9a-fA-F]{1,4}:){1,6}:[0-9a-fA-F]{1,4}|([0-9a-fA-F]{1,4}:){1,5}(:[0-9a-fA-F]{1,4}){1,2}|([0-9a-fA-F]{1,4}:){1,4}(:[0-9a-fA-F]{1,4}){1,3}|([0-9a-fA-F]{1,4}:){1,3}(:[0-9a-fA-F]{1,4}){1,4}|([0-9a-fA-F]{1,4}:){1,2}(:[0-9a-fA-F]{1,4}){1,5}|[0-9a-fA-F]{1,4}:((:[0-9a-fA-F]{1,4}){1,6})|:((:[0-9a-fA-F]{1,4}){1,7}|:)|fe80:(:[0-9a-fA-F]{0,4}){0,4}%[0-9a-zA-Z]{1,}|::(ffff(:0{1,4}){0,1}:){0,1}((25[0-5]|(2[0-4]|1{0,1}[0-9]){0,1}[0-9])\.){3,3}(25[0-5]|(2[0-4]|1{0,1}[0-9]){0,1}[0-9])|([0-9a-fA-F]{1,4}:){1,4}:((25[0-5]|(2[0-4]|1{0,1}[0-9]){0,1}[0-9])\.){3,3}(25[0-5]|(2[0-4]|1{0,1}[0-9]){0,1}[0-9]))$/;
+
+const gip = async ({ services: customServices = [], ensure = 3, timeout = 10000, verbose = true, type = "automatic" } = {}) => {
   const formattedCustomServices = customServices.map(s => 
     /^https?:\/\//.test(s) ? s : `https://${s.replace(/^\W+/g, "")}`
   );
 
-  const allServices = [...new Set([...services, ...formattedCustomServices])];
+  let selectedServices = [];
+  if (type === "ipv4") {
+    selectedServices = services.ipv4;
+  } else if (type === "ipv6") {
+    selectedServices = services.ipv6;
+  } else if (type === "automatic") {
+    selectedServices = [...services.ipv4, ...services.ipv6];
+  } else {
+    throw new Error(`Invalid type parameter: ${type}. Expected "ipv4", "ipv6", or "automatic"`);
+  }
+
+  const allServices = [...new Set([...selectedServices, ...formattedCustomServices])];
 
   if (ensure > allServices.length) throw new Error(`Maximum ensure count is ${allServices.length}`);
 
@@ -42,7 +56,11 @@ const gip = async ({ services: customServices = [], ensure = 3, timeout = 10000,
         })
         .then((ip) => {
           const trimmedIP = ip.trim();
-          if (IPv4_regex.test(trimmedIP) && !isResolved) {
+          let isValid = false;
+          if ((type === "ipv4" || type === "automatic") && IPv4_regex.test(trimmedIP)) isValid = true;
+          if ((type === "ipv6" || type === "automatic") && IPv6_regex.test(trimmedIP)) isValid = true;
+
+          if (isValid && !isResolved) {
             // Increment count for this IP
             const currentCount = (ipCounts.get(trimmedIP) || 0) + 1;
             ipCounts.set(trimmedIP, currentCount);
