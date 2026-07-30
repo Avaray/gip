@@ -1,6 +1,6 @@
 # 🐷 GIP (Get IP)
 
-Zero-dependency, [TypeScript](https://www.typescriptlang.org/)-friendly module and
+Dependency-free, [TypeScript](https://www.typescriptlang.org/)-friendly module and
 [CLI](https://en.wikipedia.org/wiki/Command-line_interface) tool that retrieves your real public
 [IPv4](https://en.wikipedia.org/wiki/IPv4) or [IPv6](https://en.wikipedia.org/wiki/IPv6) address from "IP echo" services.
 It uses the built-in [`node:http`](https://nodejs.org/api/http.html) / [`node:https`](https://nodejs.org/api/https.html) modules
@@ -9,7 +9,7 @@ Requests are fired concurrently to multiple services, and by default **GIP** wai
 You can customize this threshold with the `ensure` option.
 
 **GIP** uses more than 20 different "IP echo" websites split into dedicated IPv4 and IPv6 lists, and you can add your own with the
-`services` option. Because these services are external, their availability and reliability may vary. You can reduce risk by choosing
+`services` option. Because these services are external, their availability and reliability may vary. You can reduce risk of failure by choosing
 a sensible `ensure` count.
 
 ## Requirements
@@ -18,27 +18,19 @@ a sensible `ensure` count.
 
 ## [Module](https://nodejs.org/api/esm.html#modules-ecmascript-modules) installation
 
-[NPM](https://docs.npmjs.com/cli/v11/commands/npm-install)
+Use your favorite package manager to install **GIP** as a dependency in your project:
 
-```bash
+```sh
+# with NPM
 npm i gip
-```
 
-[PNPM](https://pnpm.io/cli/add)
-
-```bash
+# with PNPM
 pnpm add gip
-```
 
-[BUN](https://bun.sh/docs/cli/add)
-
-```bash
+# with Bun
 bun add gip
-```
 
-[DENO](https://docs.deno.com/runtime/reference/cli/add/)
-
-```bash
+# with Deno
 deno add npm:gip
 ```
 
@@ -64,7 +56,7 @@ const options = {
   services: ["ipv4.icanhazip.com", "ifconfig.me/ip"],
   ensure: 10,
   verbose: true,
-  type: "ipv4", // 'ipv4', 'ipv6', or 'automatic' (default)
+  type: "ipv4",
 };
 
 try {
@@ -77,54 +69,44 @@ try {
 
 ## [CLI](https://en.wikipedia.org/wiki/Command-line_interface) installation
 
-[NPM](https://docs.npmjs.com/downloading-and-installing-packages-globally)
-
-```bash
+```sh
+# with NPM
 npm i -g gip
-```
 
-[PNPM](https://pnpm.io/cli/add#--global--g)
-
-```bash
+# with PNPM
 pnpm add -g gip
-```
 
-[BUN](https://bun.sh/docs/cli/install#global-packages)
-
-```bash
+# with Bun
 bun i -g gip
-```
 
-[DENO](https://docs.deno.com/runtime/reference/cli/install/#global-installation)
-
-```bash
+# with Deno
 deno i -g npm:gip
 ```
 
 ## [CLI](https://en.wikipedia.org/wiki/Command-line_interface) usage
 
-```bash
+```sh
 gip
 # 133.74.20.69
 ```
 
 Setting ensure option
 
-```bash
+```sh
 gip --ensure 10
 # 133.74.20.69
 ```
 
 Setting type option
 
-```bash
+```sh
 gip --type ipv6
 # 2001:0db8:85a3:0000:0000:8a2e:0370:7334
 ```
 
 Passing custom services
 
-```bash
+```sh
 gip --services "https://ipv4.icanhazip.com/" "https://ifconfig.me/ip"
 # 133.74.20.69
 ```
@@ -133,25 +115,17 @@ gip --services "https://ipv4.icanhazip.com/" "https://ifconfig.me/ip"
 
 [NPM](https://docs.npmjs.com/cli/v11/commands/npx)
 
-```bash
+```sh
+# with NPM
 npx gip
-```
 
-[PNPM](https://pnpm.io/cli/pnx)
-
-```bash
+# with PNPM
 pnx gip
-```
 
-[BUN](https://bun.sh/docs/cli/bunx)
-
-```bash
+# with Bun
 bunx gip
-```
 
-[DENO](https://docs.deno.com/runtime/reference/cli/run/)
-
-```bash
+# with Deno
 deno run --allow-net npm:gip
 ```
 
