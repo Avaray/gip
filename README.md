@@ -1,14 +1,16 @@
 # 🐷 GIP (Get IP)
 
-Dependency-free, [TypeScript](https://www.typescriptlang.org/)-friendly module and
-[CLI](https://en.wikipedia.org/wiki/Command-line_interface) tool that uses the
-[Fetch API](https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API) to retrieve your real public
-[IPv4](https://en.wikipedia.org/wiki/IPv4) or [IPv6](https://en.wikipedia.org/wiki/IPv6) address from "IP echo" services. It fetches data concurrently from multiple services to provide
-accurate results as quickly as possible. By default, **GIP** verifies the IP address by waiting for three matching responses from different
-services, and you can customize this number using the `ensure` option.
+Zero-dependency, [TypeScript](https://www.typescriptlang.org/)-friendly module and
+[CLI](https://en.wikipedia.org/wiki/Command-line_interface) tool that retrieves your real public
+[IPv4](https://en.wikipedia.org/wiki/IPv4) or [IPv6](https://en.wikipedia.org/wiki/IPv6) address from "IP echo" services.
+It uses the built-in [`node:http`](https://nodejs.org/api/http.html) / [`node:https`](https://nodejs.org/api/https.html) modules
+and enforces the IP family at the DNS-resolution level (`family: 4` or `family: 6`), so you always get the address type you asked for.
+Requests are fired concurrently to multiple services, and by default **GIP** waits for three matching responses before returning a result.
+You can customize this threshold with the `ensure` option.
 
-**GIP** uses more than 20 different "IP echo" websites, and you can add your own with the `services` option. Because these services are
-external, their availability and reliability may vary. You can reduce risk by choosing a sensible `ensure` count.
+**GIP** uses more than 20 different "IP echo" websites split into dedicated IPv4 and IPv6 lists, and you can add your own with the
+`services` option. Because these services are external, their availability and reliability may vary. You can reduce risk by choosing
+a sensible `ensure` count.
 
 ## Requirements
 
@@ -155,8 +157,10 @@ deno run --allow-net npm:gip
 
 ## Additional info
 
-- Passing your own services will not prioritize them. You will get answer from the fastest services anyway.
-- If you pass service without specified [protocol](https://en.wikipedia.org/wiki/Hypertext_Transfer_Protocol),
+- Passing your own services will not prioritize them. You will get the answer from the fastest responding service anyway.
+- If you pass a service without a specified [protocol](https://en.wikipedia.org/wiki/Hypertext_Transfer_Protocol),
   [HTTPS](https://en.wikipedia.org/wiki/HTTPS) will be used.
-- List of built-in services is located in file [services.mjs](https://github.com/Avaray/gip/blob/main/services.mjs). If you know any
+- IP family enforcement (`family: 4` / `family: 6`) is applied at the DNS-resolution level via `node:http` / `node:https`.
+  This means even dual-stack (IPv4 + IPv6) domains are forced to resolve using the correct address family.
+- Lists of built-in services are located in [services.mjs](https://github.com/Avaray/gip/blob/main/services.mjs). If you know any
   reliable services, feel free to contribute.

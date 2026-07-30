@@ -1,4 +1,6 @@
 import process from "node:process";
+import http from "node:http";
+import https from "node:https";
 parseInt(process.version.match(/(?:v?)([\d]+)(?:\.)/)[1]) < 21 && process.removeAllListeners("warning");
 
 import services from "./services.mjs";
@@ -9,18 +11,76 @@ const IPv4_regex =
 const IPv6_regex =
   /^(([0-9a-fA-F]{1,4}:){7,7}[0-9a-fA-F]{1,4}|([0-9a-fA-F]{1,4}:){1,7}:|([0-9a-fA-F]{1,4}:){1,6}:[0-9a-fA-F]{1,4}|([0-9a-fA-F]{1,4}:){1,5}(:[0-9a-fA-F]{1,4}){1,2}|([0-9a-fA-F]{1,4}:){1,4}(:[0-9a-fA-F]{1,4}){1,3}|([0-9a-fA-F]{1,4}:){1,3}(:[0-9a-fA-F]{1,4}){1,4}|([0-9a-fA-F]{1,4}:){1,2}(:[0-9a-fA-F]{1,4}){1,5}|[0-9a-fA-F]{1,4}:((:[0-9a-fA-F]{1,4}){1,6})|:((:[0-9a-fA-F]{1,4}){1,7}|:)|fe80:(:[0-9a-fA-F]{0,4}){0,4}%[0-9a-zA-Z]{1,}|::(ffff(:0{1,4}){0,1}:){0,1}((25[0-5]|(2[0-4]|1{0,1}[0-9]){0,1}[0-9])\.){3,3}(25[0-5]|(2[0-4]|1{0,1}[0-9]){0,1}[0-9])|([0-9a-fA-F]{1,4}:){1,4}:((25[0-5]|(2[0-4]|1{0,1}[0-9]){0,1}[0-9])\.){3,3}(25[0-5]|(2[0-4]|1{0,1}[0-9]){0,1}[0-9]))$/;
 
+const fetchIP = (urlStr, options = {}) => {
+  return new Promise((resolve, reject) => {
+    let url;
+    try {
+      url = new URL(urlStr);
+    } catch (e) {
+      return reject(e);
+    }
+
+    // NOTE: Do NOT pass `signal` to reqOptions — Bun does not support it in
+    // http.get() and will silently hang. Aborting is handled manually below.
+    const client = url.protocol === "http:" ? http : https;
+    const reqOptions = {
+      family: options.family,
+    };
+
+    let settled = false;
+    const done = (fn, val) => {
+      if (settled) return;
+      settled = true;
+      fn(val);
+    };
+
+    const req = client.get(url, reqOptions, (res) => {
+      if (res.statusCode < 200 || res.statusCode >= 300) {
+        res.resume();
+        return done(reject, new Error(`HTTP ${res.statusCode}`));
+      }
+
+      let data = "";
+      res.on("data", (chunk) => { data += chunk; });
+      res.on("end", () => done(resolve, data));
+    });
+
+    if (options.signal) {
+      const abortErr = () => {
+        const err = new Error("AbortError");
+        err.name = "AbortError";
+        done(reject, err);
+        req.destroy();
+      };
+
+      if (options.signal.aborted) {
+        abortErr();
+      } else {
+        options.signal.addEventListener("abort", abortErr);
+        req.on("close", () => options.signal.removeEventListener("abort", abortErr));
+      }
+    }
+
+    req.on("error", (err) => done(reject, err));
+  });
+};
+
 const gip = async ({ services: customServices = [], ensure = 3, timeout = 10000, verbose = true, type = "automatic" } = {}) => {
-  const formattedCustomServices = customServices.map(s => 
+  const formattedCustomServices = customServices.map((s) =>
     /^https?:\/\//.test(s) ? s : `https://${s.replace(/^\W+/g, "")}`
   );
 
   let selectedServices = [];
+  let family = 0;
   if (type === "ipv4") {
     selectedServices = services.ipv4;
+    family = 4;
   } else if (type === "ipv6") {
     selectedServices = services.ipv6;
+    family = 6;
   } else if (type === "automatic") {
     selectedServices = [...services.ipv4, ...services.ipv6];
+    family = 0;
   } else {
     throw new Error(`Invalid type parameter: ${type}. Expected "ipv4", "ipv6", or "automatic"`);
   }
@@ -49,11 +109,7 @@ const gip = async ({ services: customServices = [], ensure = 3, timeout = 10000,
 
   return new Promise((resolve, reject) => {
     const promises = allServices.map((url) =>
-      fetch(url, { signal })
-        .then((res) => {
-          if (!res.ok) throw new Error(`HTTP ${res.status}`);
-          return res.text();
-        })
+      fetchIP(url, { signal, family })
         .then((ip) => {
           const trimmedIP = ip.trim();
           let isValid = false;
