@@ -6,7 +6,7 @@
   "bugs": {
     "url": "https://github.com/Avaray/gip/issues"
   },
-  "description": "Dependency-free, TypeScript-friendly module and CLI tool that uses the Fetch API to retrieve your real public IPv4 address.",
+  "description": "Zero-dependency, TypeScript-friendly module and CLI tool that uses node:http/https to retrieve your real public IPv4 or IPv6 address.",
   "engines": {
     "node": ">=20.0.0"
   },
@@ -20,12 +20,13 @@
     "external-address",
     "external-ip",
     "external",
-    "fetch-api",
-    "fetch",
+    "http",
+    "https",
     "internet-protocol",
     "iot",
     "ip",
     "ipv4",
+    "ipv6",
     "network",
     "public-ip",
     "utility"

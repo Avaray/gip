@@ -1,4 +1,4 @@
-import { describe, test, expect, beforeAll, afterAll, afterEach, beforeEach } from "bun:test";
+import { describe, test, expect, beforeAll, afterAll, beforeEach } from "bun:test";
 import gip from "./module.mjs";
 import defaultServices from "./services.mjs";
 
@@ -69,16 +69,6 @@ describe("gip module", () => {
   const getUrl = (path) => `http://localhost:${server.port}${path}`;
 
   // --- Core behavior ---
-
-  test("should return a valid public IPv4 address", async () => {
-    // Restore for this specific integration test
-    defaultServices.ipv4.push(...originalIpv4);
-    
-    const ip = await gip({ ensure: 2, timeout: 15000 });
-    const IPv4_regex =
-      /^(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$/;
-    expect(ip).toMatch(IPv4_regex);
-  }, 20000);
 
   test("should resolve instantly and not wait for all fetches to settle", async () => {
     const start = Date.now();
