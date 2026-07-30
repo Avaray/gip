@@ -1,20 +1,7 @@
 # 🐷 GIP (Get IP)
 
 Dependency-free, [TypeScript](https://www.typescriptlang.org/)-friendly module and
-[CLI](https://en.wikipedia.org/wiki/Command-line_interface) tool that retrieves your real public
-[IPv4](https://en.wikipedia.org/wiki/IPv4) or [IPv6](https://en.wikipedia.org/wiki/IPv6) address from "IP echo" services.
-It uses the built-in [`node:http`](https://nodejs.org/api/http.html) / [`node:https`](https://nodejs.org/api/https.html) modules
-and enforces the IP family at the DNS-resolution level (`family: 4` or `family: 6`), so you always get the address type you asked for.
-Requests are fired concurrently to multiple services, and by default **GIP** waits for three matching responses before returning a result.
-You can customize this threshold with the `ensure` option.
-
-**GIP** uses more than 20 different "IP echo" websites split into dedicated IPv4 and IPv6 lists, and you can add your own with the
-`services` option. Because these services are external, their availability and reliability may vary. You can reduce risk of failure by choosing
-a sensible `ensure` count.
-
-## Requirements
-
-[NodeJS](https://nodejs.org/en/download) version **20.0.0** or higher.
+[CLI](https://en.wikipedia.org/wiki/Command-line_interface) tool to quickly retrieve your real public [IPv4](https://en.wikipedia.org/wiki/IPv4) or [IPv6](https://en.wikipedia.org/wiki/IPv6) address. 
 
 ## [Module](https://nodejs.org/api/esm.html#modules-ecmascript-modules) installation
 
@@ -100,8 +87,6 @@ gip --services "https://ipv4.icanhazip.com/" "https://ifconfig.me/ip"
 ```
 
 ## [CLI](https://en.wikipedia.org/wiki/Command-line_interface) usage without installation
-
-[NPM](https://docs.npmjs.com/cli/v11/commands/npx)
 
 ```sh
 # with NPM
