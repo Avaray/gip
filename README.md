@@ -111,3 +111,7 @@ deno run --allow-net npm:gip
   This means even dual-stack (IPv4 + IPv6) domains are forced to resolve using the correct address family.
 - Lists of built-in services are located in [services.mjs](https://github.com/Avaray/gip/blob/main/services.mjs). If you know any
   reliable services, feel free to contribute.
+
+## License
+
+[MIT License](LICENSE)
