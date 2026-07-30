@@ -3,6 +3,9 @@
   "bin": {
     "gip": "cli.mjs"
   },
+  "scripts": {
+    "test:services": "node scripts/test-services.mjs"
+  },
   "bugs": {
     "url": "https://github.com/Avaray/gip/issues"
   },
