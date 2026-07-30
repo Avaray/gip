@@ -135,7 +135,7 @@ const gip = async ({ services: customServices = [], ensure = 3, timeout = 10000,
         })
         .catch((err) => {
           if (err.name !== "AbortError" && verbose) {
-            console.error("Fetch error:", err);
+            console.error(`[gip] fetch error (${url}): ${err.message}`);
           }
           return null;
         })

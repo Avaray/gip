@@ -118,16 +118,16 @@ describe("integration: IPv6", () => {
 // --- ensure option ---
 
 describe("integration: ensure option", () => {
-  test("ensure: 1 should resolve faster than ensure: 5", async () => {
+  test("ensure: 1 should resolve faster than ensure: 3", async () => {
     const start1 = Date.now();
     await gip({ type: "ipv4", ensure: 1, timeout: 15000 });
     const time1 = Date.now() - start1;
 
     const start5 = Date.now();
-    await gip({ type: "ipv4", ensure: 5, timeout: 15000 });
+    await gip({ type: "ipv4", ensure: 3, timeout: 15000 });
     const time5 = Date.now() - start5;
 
-    console.log(`  ensure:1 → ${time1}ms | ensure:5 → ${time5}ms`);
+    console.log(`  ensure:1 → ${time1}ms | ensure:3 → ${time5}ms`);
     expect(time1).toBeLessThanOrEqual(time5);
   }, 40000);
 });

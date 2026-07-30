@@ -1,12 +1,7 @@
 export default {
   ipv4: [
-    "http://eth0.me",
     "http://ipv4.whatismyip.akamai.com",
     "https://2ip.io/",
-    "https://4.ident.me/",
-    "https://4.tnedi.me/",
-    "https://api4.ipify.org/",
-    "https://api-ipv4.ip.sb/ip",
     "https://api.ipify.org",
     "https://api.myip.la",
     "https://api.seeip.org",
@@ -31,7 +26,6 @@ export default {
     "https://ipv4.appspot.com",
     "https://ipv4.icanhazip.com",
     "https://ipv4.seeip.org/",
-    "https://ipv4.wtfismyip.com/text",
     "https://l2.io/ip",
     "https://myexternalip.com/raw",
     "https://myip.dnsomatic.com",
@@ -40,7 +34,6 @@ export default {
     "https://simpip.com/",
     "https://v4.ident.me",
     "https://wgetip.com",
-    "https://whatismyip.akamai.com/",
     "https://wtfismyip.com/text",
     "https://www.trackip.net/ip",
     "https://www.uc.cn/ip",
@@ -48,6 +41,7 @@ export default {
   ipv6: [
     "http://checkip6.spdyn.de/",
     "http://checkip.spdyn.de/",
+    "http://eth0.me",
     "http://ip1.dynupdate6.no-ip.com/",
     "https://api6.ipify.org",
     "https://api64.ipify.org",
@@ -72,6 +66,8 @@ export default {
     "https://v6.i-p.show",
     "https://v6.ip.wtf",
     "https://v6.ipinfo.io/ip",
+    "https://v6.ident.me",
+    "https://whatismyip.akamai.com/",
     "https://wgetip.com/",
   ],
 };
