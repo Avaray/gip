@@ -26,9 +26,9 @@ function parseArguments(args) {
         i++; // Move to the next URL
       }
     } else if ((args[i] === "--type" || args[i] === "-t") && i + 1 < args.length) {
-      const typeArg = args[i + 1];
+      const typeArg = args[i + 1].toLowerCase();
       if (!["ipv4", "ipv6", "automatic"].includes(typeArg)) {
-        console.error(`Error: Invalid value for type flag: '${typeArg}'. Expected "ipv4", "ipv6", or "automatic".`);
+        console.error(`Error: Invalid value for type flag: '${args[i + 1]}'. Expected "ipv4", "ipv6", or "automatic".`);
         process.exit(1);
       }
       options.type = typeArg;

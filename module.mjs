@@ -72,13 +72,15 @@ const gip = async ({ services: customServices = [], ensure = 3, timeout = 10000,
 
   let selectedServices = [];
   let family = 0;
-  if (type === "ipv4") {
+  const normalizedType = String(type).toLowerCase();
+
+  if (normalizedType === "ipv4") {
     selectedServices = services.ipv4;
     family = 4;
-  } else if (type === "ipv6") {
+  } else if (normalizedType === "ipv6") {
     selectedServices = services.ipv6;
     family = 6;
-  } else if (type === "automatic") {
+  } else if (normalizedType === "automatic") {
     selectedServices = [...services.ipv4, ...services.ipv6];
     family = 0;
   } else {
@@ -113,8 +115,8 @@ const gip = async ({ services: customServices = [], ensure = 3, timeout = 10000,
         .then((ip) => {
           const trimmedIP = ip.trim();
           let isValid = false;
-          if ((type === "ipv4" || type === "automatic") && IPv4_regex.test(trimmedIP)) isValid = true;
-          if ((type === "ipv6" || type === "automatic") && IPv6_regex.test(trimmedIP)) isValid = true;
+          if ((normalizedType === "ipv4" || normalizedType === "automatic") && IPv4_regex.test(trimmedIP)) isValid = true;
+          if ((normalizedType === "ipv6" || normalizedType === "automatic") && IPv6_regex.test(trimmedIP)) isValid = true;
 
           if (isValid && !isResolved) {
             // Increment count for this IP
