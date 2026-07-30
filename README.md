@@ -9,7 +9,7 @@ Use your favorite package manager to install **GIP** as a dependency in your pro
 
 ```sh
 # with NPM
-npm i gip
+npm install gip
 
 # with PNPM
 pnpm add gip
@@ -58,16 +58,16 @@ try {
 
 ```sh
 # with NPM
-npm i -g gip
+npm install -g gip
 
 # with PNPM
 pnpm add -g gip
 
 # with Bun
-bun i -g gip
+bun install -g gip
 
 # with Deno
-deno i -g npm:gip
+deno install -g npm:gip
 ```
 
 ## [CLI](https://en.wikipedia.org/wiki/Command-line_interface) usage
