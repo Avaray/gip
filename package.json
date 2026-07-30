@@ -10,6 +10,18 @@
     "url": "https://github.com/Avaray/gip/issues"
   },
   "description": "Zero-dependency, TypeScript-friendly module and CLI tool that uses node:http/https to retrieve your real public IPv4 or IPv6 address.",
+  "exports": {
+    ".": {
+      "types": "./module.d.ts",
+      "import": "./module.mjs"
+    }
+  },
+  "files": [
+    "module.mjs",
+    "module.d.ts",
+    "cli.mjs",
+    "services.mjs"
+  ],
   "engines": {
     "node": ">=20.0.0"
   },
