@@ -33,6 +33,8 @@ function parseArguments(args) {
       }
       options.type = typeArg;
       i++; // Skip the next argument
+    } else if (args[i] === "--no-cache" || args[i] === "--nocache" || args[i] === "-n") {
+      options.noCache = true;
     } else if (args[i] === "--version" || args[i] === "-v") {
       const version = packageJson.version;
       console.log(version);

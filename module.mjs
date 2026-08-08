@@ -16,6 +16,9 @@ const fetchIP = (urlStr, options = {}) => {
     let url;
     try {
       url = new URL(urlStr);
+      if (options.noCache) {
+        url.searchParams.set("_", Date.now());
+      }
     } catch (e) {
       return reject(e);
     }
@@ -65,7 +68,7 @@ const fetchIP = (urlStr, options = {}) => {
   });
 };
 
-const gip = async ({ services: customServices = [], ensure = 3, timeout = 10000, verbose = true, type = "automatic" } = {}) => {
+const gip = async ({ services: customServices = [], ensure = 3, timeout = 10000, verbose = true, type = "automatic", noCache = false } = {}) => {
   const formattedCustomServices = customServices.map((s) =>
     /^https?:\/\//.test(s) ? s : `https://${s.replace(/^\W+/g, "")}`
   );
@@ -111,7 +114,7 @@ const gip = async ({ services: customServices = [], ensure = 3, timeout = 10000,
 
   return new Promise((resolve, reject) => {
     const promises = allServices.map((url) =>
-      fetchIP(url, { signal, family })
+      fetchIP(url, { signal, family, noCache })
         .then((ip) => {
           const trimmedIP = ip.trim();
           let isValid = false;

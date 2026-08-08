@@ -29,6 +29,12 @@ declare module "gip" {
     verbose?: boolean;
 
     /**
+     * If true, a random query parameter is appended to each request to bypass caches.
+     * @default false
+     */
+    noCache?: boolean;
+
+    /**
      * The type of IP address to retrieve.
      * - `ipv4`: Forces DNS resolution to IPv4 (`family: 4`).
      * - `ipv6`: Forces DNS resolution to IPv6 (`family: 6`).
