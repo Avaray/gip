@@ -1,0 +1,105 @@
+name: Publish to NPM
+
+on:
+  # Trigger automatically when code is pushed to main branch
+  push:
+    branches:
+      - main
+  # Allow manual triggering from GitHub Actions UI with an optional version
+  workflow_dispatch:
+    inputs:
+      version:
+        description: 'Version to publish (e.g. 1.2.0, 2.0.0-beta.1). Leave empty to use version from package.json.'
+        required: false
+        default: ''
+
+jobs:
+  check-version:
+    name: Check Version
+    runs-on: ubuntu-latest
+    outputs:
+      should_publish: ${{ steps.version_check.outputs.should_publish }}
+    steps:
+      # 1. Checkout the repository code
+      - name: Checkout Repository
+        uses: actions/checkout@v7
+
+      # 2. If triggered manually with a version input, bump package.json version
+      - name: Bump Version (manual trigger only)
+        if: github.event_name == 'workflow_dispatch' && inputs.version != ''
+        run: npm version ${{ inputs.version }} --no-git-tag-version --allow-same-version
+
+      # 3. Check if version already exists on NPM via HTTP (no Node.js setup needed,
+      # jq and curl are pre-installed on all GitHub Actions ubuntu runners).
+      - name: Check if Version Exists
+        id: version_check
+        run: |
+          LOCAL_VERSION=$(jq -r '.version' package.json)
+          HTTP_STATUS=$(curl -s -o /dev/null -w "%{http_code}" https://registry.npmjs.org/gip/$LOCAL_VERSION)
+          if [ "$HTTP_STATUS" = "200" ]; then
+            echo "Version $LOCAL_VERSION is already published. Skipping."
+            echo "should_publish=false" >> $GITHUB_OUTPUT
+          else
+            echo "Version $LOCAL_VERSION is new. Proceeding..."
+            echo "should_publish=true" >> $GITHUB_OUTPUT
+          fi
+
+  publish:
+    name: Build and Publish
+    needs: check-version
+    # This 'if' condition is what makes GitHub UI show this job as "Skipped"
+    # when the version hasn't changed.
+    if: needs.check-version.outputs.should_publish == 'true'
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      id-token: write # Required for NPM Provenance attestation
+    steps:
+      # 1. Checkout the repository code again for this job
+      - name: Checkout Repository
+        uses: actions/checkout@v7
+
+      # 2. Setup Node.js (Needed for NPM publishing and Provenance)
+      - name: Setup Node.js
+        uses: actions/setup-node@v7
+        with:
+          node-version: '24'
+          registry-url: 'https://registry.npmjs.org'
+
+      # 3. Setup Bun (Lightning fast package manager)
+      - name: Setup Bun
+        uses: oven-sh/setup-bun@v2
+        with:
+          bun-version: latest
+
+      # 4. Install dependencies using Bun
+      - name: Install Dependencies
+        run: bun install
+
+      # 5. Run unit tests - if any fail, the release is aborted
+      # Integration tests (gip.integration.test.js) are excluded here because
+      # GitHub Actions runners do not have IPv6 connectivity.
+      - name: Run Test Suite
+        run: bun test gip.test
+
+      # 6. Publish to NPM
+      # For prerelease versions (e.g. 2.0.0-beta.1, 2.0.0-rc.0), the tag is
+      # automatically extracted from the version string and passed via --tag.
+      # Otherwise, it falls back to the default 'latest' tag.
+      - name: Publish to NPM
+        run: |
+          LOCAL_VERSION=$(node -p "require('./package.json').version")
+          echo "Publishing version $LOCAL_VERSION..."
+          # Extract prerelease tag using bash string manipulation (no dependencies needed)
+          # e.g. "2.0.0-beta.23" -> "beta", "2.0.0-rc.0" -> "rc", "2.0.0" -> ""
+          PRERELEASE=""
+          if [[ "$LOCAL_VERSION" == *"-"* ]]; then
+            PRERELEASE="${LOCAL_VERSION#*-}"
+            PRERELEASE="${PRERELEASE%%.*}"
+          fi
+          if [ -n "$PRERELEASE" ]; then
+            echo "Prerelease detected, using --tag $PRERELEASE"
+            npm publish --provenance --access public --tag "$PRERELEASE"
+          else
+            npm publish --provenance --access public
+          fi
