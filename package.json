@@ -54,5 +54,5 @@
     "url": "git+https://github.com/Avaray/gip.git"
   },
   "types": "module.d.ts",
-  "version": "4.0.0"
+  "version": "4.1.0"
 }

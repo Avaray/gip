@@ -5,6 +5,11 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [4.1.0] - 2026-08-08
+
+### Added
+- **Cache Busting**: Introduced the `noCache` option (and `--no-cache` / `-n` CLI flags) to force CDNs and proxies to serve fresh responses by appending a `_=<timestamp>` parameter to outgoing requests.
+
 ## [4.0.0] - 2026-07-30
 
 This major release focuses on true zero-dependency architecture, improved reliability of IPv4/IPv6 resolution, and overall stability improvements across all JavaScript runtimes (Node.js, Bun, Deno).
